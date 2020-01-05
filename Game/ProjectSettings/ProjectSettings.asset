@@ -566,11 +566,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: New Unity Project
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: D:\Repos\PersonalGithub\HoloTetris\Game\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 80f6a45816e3d601
   metroApplicationDescription: New Unity Project
   wsaImages: {}
   metroTileShortName: New Unity Project
