@@ -149,6 +149,7 @@ public class BlockSpawner : MonoBehaviour {
         for (int i = 0; i < width; i++)
         {
             Destroy(grid[i, row].gameObject);
+            grid[h, w] = null;
         }
 
         MoveBlocksDown(row + 1);
@@ -183,7 +184,7 @@ public class BlockSpawner : MonoBehaviour {
                 if (grid[h, w] != null)
                 {
                     grid[h - 1, w] = grid[h, w];
-                    grid[h, w] = null;
+                    
                 }
             }
         }
