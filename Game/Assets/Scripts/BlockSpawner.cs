@@ -30,6 +30,7 @@ public class BlockSpawner : MonoBehaviour {
         }
 
         activeBlock = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+        activeBlock.transform.parent = this.transform;
     }
 
     void Update()

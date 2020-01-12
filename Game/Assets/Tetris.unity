@@ -725,6 +725,7 @@ GameObject:
   - component: {fileID: 1781852378}
   - component: {fileID: 1781852377}
   - component: {fileID: 1781852379}
+  - component: {fileID: 1781852380}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -774,6 +775,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb2e243627c49d41b7e725cf045a3ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1781852380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1781852376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f384e278869c5a49a495b57cc065ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockSpawner: {fileID: 1781852377}
 --- !u!1 &1833944952
 GameObject:
   m_ObjectHideFlags: 0
