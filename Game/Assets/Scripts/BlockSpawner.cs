@@ -90,6 +90,11 @@ public class BlockSpawner : MonoBehaviour {
         }
     }
 
+    public void MoveDown()
+    {
+        activeBlock.transform.position += new Vector3(0, 1, 0);
+    }
+
     bool ValidMove()
     {
         foreach (Transform c in activeBlock.transform)
@@ -149,7 +154,7 @@ public class BlockSpawner : MonoBehaviour {
         for (int i = 0; i < width; i++)
         {
             Destroy(grid[i, row].gameObject);
-            grid[h, w] = null;
+            grid[i, row] = null;
         }
 
         MoveBlocksDown(row + 1);
@@ -162,16 +167,16 @@ public class BlockSpawner : MonoBehaviour {
         {
             for (int w = 0; w < width; w++)
             {
-                Debug.Log(grid[h, w]);
-                if (grid[h, w] != null)
+                Debug.Log(grid[w, h]);
+                if (grid[w, h] != null)
                 {
                     Debug.LogFormat("{0}, {1}", h, w);
-                    grid[h, w].transform.position += new Vector3(0, -1, 0);
+                    grid[w, h].transform.position += new Vector3(0, -1, 0);
                 }
             }
         }
 
-        //ResetGrid(row);
+        ResetGrid(row);
     }
 
     void ResetGrid(int startingRow)
@@ -181,11 +186,7 @@ public class BlockSpawner : MonoBehaviour {
         {
             for (int w = 0; w < width; w++)
             {
-                if (grid[h, w] != null)
-                {
-                    grid[h - 1, w] = grid[h, w];
-                    
-                }
+                grid[w, h - 1] = grid[w, h];
             }
         }
     }
