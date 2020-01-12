@@ -5,23 +5,30 @@ using UnityEngine;
 public class BlockSpawner : MonoBehaviour {
 
     public GameObject[] blocks;
-    public GameObject activeBlock;
-    // Use this for initialization
-
-    private float previousTime;
 
     public float fallTime = .8f;
 
     public static int height = 20;
     public static int width = 10;
     public static Transform[,] grid = new Transform[width, height];
-    void Start ()
+
+    private GameObject activeBlock;
+    private float previousTime;
+
+    private List<Transform> inactiveBlocks = new List<Transform>();
+
+    void Start()
     {
         SpawnNewBlock();
-	}
+    }
 
     public void SpawnNewBlock()
     {
+        if (activeBlock != null)
+        {
+            inactiveBlocks.Add(activeBlock.transform);
+        }
+
         activeBlock = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
     }
 
@@ -48,13 +55,13 @@ public class BlockSpawner : MonoBehaviour {
             {
                 activeBlock.transform.position += new Vector3(0, 1, 0);
                 AddToGrid();
-                this.enabled = false;
                 SpawnNewBlock();
             }
             previousTime = Time.time;
         }
     }
 
+    #region Movement and rotation functions
     public void RotatePiece()
     {
         activeBlock.transform.eulerAngles += new Vector3(0, 0, 90);
@@ -94,6 +101,7 @@ public class BlockSpawner : MonoBehaviour {
             {
                 return false;
             }
+
             if (grid[roundX, roundY] != null)
             {
                 return false;
@@ -102,7 +110,7 @@ public class BlockSpawner : MonoBehaviour {
 
         return true;
     }
-
+    #endregion
     void AddToGrid()
     {
         foreach (Transform c in activeBlock.transform)
@@ -111,6 +119,73 @@ public class BlockSpawner : MonoBehaviour {
             int roundY = Mathf.RoundToInt(c.transform.position.y);
 
             grid[roundX, roundY] = c;
+        }
+
+        RowChecker();
+    }
+
+    void RowChecker()
+    {
+        for (int h = 0; h < height; h++)
+        {
+            for (int w = 0; w < width; w++)
+            {
+                if (grid[w, h] == null)
+                {
+                    break;//empty space no need to continue with this row of blocks
+                }
+                else if (w == width - 1)
+                {
+                    //delete row of cubes and move everything down one unit on the y axis
+                    RemoveRowFromGrid(h);
+                }
+            }
+        }
+    }
+
+    void RemoveRowFromGrid(int row)
+    {
+        Debug.Log("Removing " + row);
+        for (int i = 0; i < width; i++)
+        {
+            Destroy(grid[i, row].gameObject);
+        }
+
+        MoveBlocksDown(row + 1);
+    }
+
+    private void MoveBlocksDown(int row)
+    {
+        Debug.Log("Moving bocks down from " + row);
+        for (int h = row; h < 19; h++)
+        {
+            for (int w = 0; w < width; w++)
+            {
+                Debug.Log(grid[h, w]);
+                if (grid[h, w] != null)
+                {
+                    Debug.LogFormat("{0}, {1}", h, w);
+                    grid[h, w].transform.position += new Vector3(0, -1, 0);
+                }
+            }
+        }
+
+        //ResetGrid(row);
+    }
+
+    void ResetGrid(int startingRow)
+    {
+        Debug.Log("restting grid");
+        for (int h = startingRow ; h < 19; h++)
+        {
+            for (int w = 0; w < width; w++)
+            {
+                if (grid[h, w] != null)
+                {
+                    grid[h - 1, w] = grid[h, w];
+                    grid[h, w] = null;
+                }
+            }
         }
     }
 
