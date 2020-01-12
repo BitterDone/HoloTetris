@@ -18,6 +18,13 @@ public class CustomEventHandler : MonoBehaviour
 
     void OnSelect()
     {
+        Debug.Log("select event from " + gameObject.name);
+        OnSelectEvent.Invoke();
+    }
+
+    void OnClick()
+    {
+        Debug.Log("click event from " + gameObject.name);
         OnSelectEvent.Invoke();
     }
 }

@@ -50,14 +50,7 @@ public class BlockSpawner : MonoBehaviour {
 
         if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
         {
-            activeBlock.transform.position -= new Vector3(0, 1, 0);
-            if (!ValidMove())
-            {
-                activeBlock.transform.position += new Vector3(0, 1, 0);
-                AddToGrid();
-                SpawnNewBlock();
-            }
-            previousTime = Time.time;
+            MoveDown();
         }
     }
 
@@ -92,7 +85,14 @@ public class BlockSpawner : MonoBehaviour {
 
     public void MoveDown()
     {
-        activeBlock.transform.position += new Vector3(0, 1, 0);
+        activeBlock.transform.position -= new Vector3(0, 1, 0);
+        if (!ValidMove())
+        {
+            activeBlock.transform.position += new Vector3(0, 1, 0);
+            AddToGrid();
+            SpawnNewBlock();
+        }
+        previousTime = Time.time;
     }
 
     bool ValidMove()
@@ -150,7 +150,7 @@ public class BlockSpawner : MonoBehaviour {
 
     void RemoveRowFromGrid(int row)
     {
-        Debug.Log("Removing " + row);
+        //Debug.Log("Removing " + row);
         for (int i = 0; i < width; i++)
         {
             Destroy(grid[i, row].gameObject);
@@ -162,15 +162,15 @@ public class BlockSpawner : MonoBehaviour {
 
     private void MoveBlocksDown(int row)
     {
-        Debug.Log("Moving bocks down from " + row);
+        //Debug.Log("Moving bocks down from " + row);
         for (int h = row; h < 19; h++)
         {
             for (int w = 0; w < width; w++)
             {
-                Debug.Log(grid[w, h]);
+                //Debug.Log(grid[w, h]);
                 if (grid[w, h] != null)
                 {
-                    Debug.LogFormat("{0}, {1}", h, w);
+                    //Debug.LogFormat("{0}, {1}", h, w);
                     grid[w, h].transform.position += new Vector3(0, -1, 0);
                 }
             }
@@ -181,7 +181,7 @@ public class BlockSpawner : MonoBehaviour {
 
     void ResetGrid(int startingRow)
     {
-        Debug.Log("restting grid");
+        //Debug.Log("restting grid");
         for (int h = startingRow ; h < 19; h++)
         {
             for (int w = 0; w < width; w++)

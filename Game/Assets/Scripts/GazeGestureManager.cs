@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.WSA.Input;
+using UnityEngine.UI;
 
 public class GazeGestureManager : MonoBehaviour
 {
